@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoardData : MonoBehaviour
+public class BoardData : Singleton<BoardData>
 {
     public string lastPlayed; // X, O
 
