@@ -4,10 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DBManager : MonoBehaviour
+public class DBManager : Singleton<DBManager>
 {
     // auth
-    // public AuthManager auth;
+    public AuthManager auth;
 
     // Data Class
     public UserData user;
@@ -21,6 +21,8 @@ public class DBManager : MonoBehaviour
 
     private void Awake()
     {
+        auth = AuthManager.Instance;
+
         user = UserData.Instance;
         room = RoomData.Instance;
         board = BoardData.Instance;
