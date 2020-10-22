@@ -98,9 +98,19 @@ public class DBManager : Singleton<DBManager>
 
     }
 
-    public void DoAction()
+    public void DoAction(string p)
     {
+        Dictionary<string, object> action = new Dictionary<string, object>();
+        if(room.playerId == "PlayerA")
+        {
+            action[p] = "X";
+        }
+        if(room.playerId == "PlayerB")
+        {
+            action[p] = "O";
+        }
 
+        roomsReference.Child(room.roomId).Child("board").UpdateChildrenAsync(action);
     }
 
     public void GetOtherUserInformation()
