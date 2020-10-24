@@ -24,7 +24,7 @@ public class AuthManager : Singleton<AuthManager>
         
     }
 
-    public void Signup()
+    public void Signup(string username, string email, string password)
     {
 
     }
