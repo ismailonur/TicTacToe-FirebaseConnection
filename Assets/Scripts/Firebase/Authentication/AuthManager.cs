@@ -29,7 +29,7 @@ public class AuthManager : Singleton<AuthManager>
 
     }
 
-    public void Login()
+    public void Login(string email, string password)
     {
 
     }
