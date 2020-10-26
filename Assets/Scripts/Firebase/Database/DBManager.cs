@@ -73,7 +73,7 @@ public class DBManager : Singleton<DBManager>
 
     }
 
-    public void SendInvite()
+    public void SendInvite(string roomId)
     {
 
     }
