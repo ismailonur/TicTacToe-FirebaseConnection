@@ -3,6 +3,7 @@ using Firebase.Database;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DBManager : Singleton<DBManager>
 {
@@ -49,13 +50,26 @@ public class DBManager : Singleton<DBManager>
             {
                 Debug.LogError("DB Bağlantısı Kurulamadı");
             }
-
         });
     }
 
-    public void CreateUser()
+    public void CreateUser(string username)
     {
+        Dictionary<string, object> general = new Dictionary<string, object>();
+        general["Username"] = username;
 
+        Dictionary<string, object> progression = new Dictionary<string, object>();
+        progression["Score"] = 0;
+
+        usersReference.Child(user.userId).Child("General").UpdateChildrenAsync(general);
+        user.username = username;
+
+        usersReference.Child(user.userId).Child("Progression").UpdateChildrenAsync(progression);
+        user.score = 0;
+
+        Debug.Log("Kullanıcı başarıyla oluşturuldu. Logine Yönlendiriliriyor.");
+
+        SceneManager.LoadScene("Login");
     }
 
     public void GetUserInformation()
