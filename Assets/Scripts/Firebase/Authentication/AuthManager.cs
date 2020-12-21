@@ -44,7 +44,20 @@ public class AuthManager : Singleton<AuthManager>
 
     public void Login(string email, string password)
     {
-
+        auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task =>
+        {
+            if (task.IsCanceled)
+            {
+                return;
+            }
+            if (task.IsFaulted)
+            {
+                return;
+            }
+            FirebaseUser newUser = task.Result;
+            DB.user.userId = newUser.UserId;
+            DB.GetUserInformation();
+        });
     }
 
     public void AutoLogin()

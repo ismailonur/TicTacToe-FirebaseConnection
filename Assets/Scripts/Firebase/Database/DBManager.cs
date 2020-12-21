@@ -74,7 +74,34 @@ public class DBManager : Singleton<DBManager>
 
     public void GetUserInformation()
     {
+        usersReference.Child(user.userId).GetValueAsync().ContinueWith(task =>
+        {
+            Debug.Log("gdgdf");
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Faulted");
+                return;
+            }
+            if (task.IsCanceled)
+            {
+                Debug.LogError("Canceled");
+                return;
+            }
+            if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                string username = snapshot.Child("General").Child("Username").Value.ToString();
+                int score = int.Parse(snapshot.Child("Progression").Child("Score").Value.ToString());
 
+                user.username = username;
+                user.score = score;
+
+                Debug.Log("Kullanıcı Login oldu.");
+
+                SceneManager.LoadScene("Lobby");
+            }
+            Debug.Log("Sonnnnnn");
+        });
     }
 
     public void CreateRoom()
